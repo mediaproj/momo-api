@@ -4,8 +4,7 @@ const helmet = require('helmet')
 const mongoose = require('mongoose')
 const constant = require('./utils/constant')
 
-module.exports = async () => {
-    const app = express()
+const app = express()
 
     app.use(bodyParser.urlencoded({ extended: true }))
     app.use(bodyParser.json())
@@ -13,7 +12,7 @@ module.exports = async () => {
     // Mongo Connection
     const url = `mongodb://${constant.DB_HOST}/${constant.DB_PORT}`
     mongoose.Promise = global.Promise
-    await mongoose.connect(url, {
+    mongoose.connect(url, {
         useNewUrlParser : true,
         useUnifiedTopology : true
     })
@@ -26,5 +25,5 @@ module.exports = async () => {
     //route
     app.use('/user', require('./router/user'))
 
-    return app
-}
+
+module.exports = app
