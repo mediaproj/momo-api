@@ -7,27 +7,29 @@ router.get('/', (_, res) => {
 })
 
 router.post('/create', (req, res) => {
-    data = req.body.data
+    data = req.body
     console.log(data)
-    User.upsertUser(data)
-    .then(() => { res.send("done") })
+    User.findOneorCreate(data)
+    .then(() => { res.send("create done") })
     .catch((err) => { res.status(500).send(err) })
 })
 
 // get all user
 router.get('/all', (_,res) => {
-    res.send()
+    User.getAllUsers()
+    .then((data) => { res.send(data) })
+    .catch((err) => { res.status(500).send(err) })
 })
 
 router.get('/signin/:username/:password', (req, res) => {
     const data = {
-        username : req.params.username,
+        email : req.params.username,
         password : req.params.password
     }
 
     //mongo search
     User.getUserByData(data)
-    .then((user) => { res.send(suer) })
+    .then((user) => { console.log("user : " + user);res.send(user) })
     .catch((err) => { res.status(400).send(err) })
 
 })

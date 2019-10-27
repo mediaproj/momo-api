@@ -32,24 +32,36 @@ const UserSchema = new mongoose.Schema({
 {
     collection : 'user',
     timestamps : true
-}
-)
+})
 
-UserSchema.statics.upsertUser = (data) => {
-    return this.findOneAndUpdate(
-        {
-            email : data.email
-        },
-        data,
-        { upsert : true }
-    )
+UserSchema.statics.findOneorCreate = function(data) {
+    const self = this
+    return new Promise((resolve, reject) => {
+        return self.findOne({
+            email : data.email,
+            password : data.password
+        })
+        .then((result) => {
+            if(result == null) {
+                return self.create(data)
+                    .then((result) => {
+                        return resolve(result)
+                    })
+                    .catch((err) => { return reject(err) })
+            }
+            else { return resolve(result) }
+        })
+        .catch((_) => {
+            return reject(result)
+        })
+    })
 }
 
-UserSchema.statics.getAllUsers = () => {
-    return this.find({})
+UserSchema.statics.getAllUsers = function() {
+    return this.find({ })
 }
 
-UserSchema.statics.getUserByData = (data) => {
+UserSchema.statics.getUserByData = function(data) {
     return this.findOne({
         email : data.email,
         password : data.password
