@@ -8,5 +8,6 @@ module.exports = Object.freeze({
     // mongoose data
     DB_HOST : config.database.host,
     DB_PORT : config.database.port,
-    DB_NAME : config.database.db
+    DB_NAME : config.database.db,
+    DB_STORE : config.database.storeUrl
 })

@@ -21,21 +21,4 @@ router.get('/all', (_,res) => {
     .catch((err) => { res.status(500).send(err) })
 })
 
-router.get('/signin/:username/:password', (req, res) => {
-    const data = {
-        email : req.params.username,
-        password : req.params.password
-    }
-
-    //mongo search
-    User.getUserByData(data)
-    .then((user) => { console.log("user : " + user);res.send(user) })
-    .catch((err) => { res.status(400).send(err) })
-
-})
-
-router.get('/signup', (req, res) => {
-
-})
-
 module.exports = router

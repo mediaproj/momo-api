@@ -3,8 +3,10 @@ const mongoose = require('mongoose')
 const UserSchema = new mongoose.Schema({
     'email' : String,
     'password' : String,
+    'nickname' : String,
     'age' : Number,
     'gender' : Boolean,
+    'name' : String,
     'preference' : {
         'genre' : {
             'drama' : Boolean,
@@ -51,8 +53,8 @@ UserSchema.statics.findOneorCreate = function(data) {
             }
             else { return resolve(result) }
         })
-        .catch((_) => {
-            return reject(result)
+        .catch((err) => {
+            return reject(err)
         })
     })
 }
