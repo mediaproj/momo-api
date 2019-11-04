@@ -29,7 +29,15 @@ const UserSchema = new mongoose.Schema({
             'show' : Boolean,
             'festival' : Boolean
         }
-    }
+    },
+    'schedule' : [{
+        'id' : String, //수정, 삭제 위한 index용 데이터
+        'from' : Date,
+        'to' : Date,
+        'title' : String,
+        'txt' : String,
+        'enable' : Boolean
+    }]
 },
 {
     collection : 'user',
@@ -68,6 +76,10 @@ UserSchema.statics.getUserByData = function(data) {
         email : data.email,
         password : data.password
     })
+}
+
+UserSchema.statics.getUserByEmail = function(email) {
+    return this.findOne({email : email})
 }
 
 module.exports = mongoose.model('user', UserSchema)
