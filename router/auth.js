@@ -1,8 +1,6 @@
 const router = require('express').Router()
 const User = require('../models/User')
 
-module.exports = router
-
 router.post('/login', (req, res) => {
     const data = {
         email : req.body.email,
@@ -30,7 +28,7 @@ router.post('/login', (req, res) => {
         res.send(re.session.user)
     })
     .catch((err) => { res.status(400).send(err) })
-
+ 
 })
 
 router.get('/signout', (req, res) => {
@@ -39,3 +37,5 @@ router.get('/signout', (req, res) => {
         else res.sendStatus(200)
     })
 })
+
+module.exports = router
