@@ -27,6 +27,8 @@ module.exports = session => {
 
     //route
     app.use('/user', require('./router/user'))
+    //app.use('/auth', require('./router/auth'))
+    app.use('/movie', require('./router/movie'))
 
     return app
 }
