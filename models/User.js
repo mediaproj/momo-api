@@ -2,8 +2,8 @@ const mongoose = require('mongoose')
 
 const UserSchema = new mongoose.Schema({
     'email' : String,
+    'profileImg' : String,
     'password' : String,
-    'nickname' : String,
     'age' : Number,
     'gender' : Boolean,
     'name' : String,
@@ -15,13 +15,12 @@ const UserSchema = new mongoose.Schema({
             'romance' : Boolean,
             'action' : Boolean,
             'thriller' : Boolean,
-            'blues' : Boolean,
+            'animation' : Boolean,
+            'adventure' : Boolean,
             'mistery' : Boolean,
-            'comedy' : Boolean,
-            'documentary' : Boolean,
-            'family' : Boolean,
+            'history' : Boolean,
             'sf' : Boolean,
-            'animation' : Boolean
+            'comedy' : Boolean
         },
         'section' : {
             'movie' : Boolean,
