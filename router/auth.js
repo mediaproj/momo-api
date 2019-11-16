@@ -1,41 +1,50 @@
 const router = require('express').Router()
 const User = require('../models/User')
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
     const data = {
         email : req.body.email,
         password : req.body.password
     }
-    
-    //DB search
-    User.getUserByEmail(data)
-    .then((u) => {
-        console.log(u)
-        
+    console.log(data)
+    try {
+        // get user in DB
+        const searchUser = await User.getUserByEmail(data.email)
+
         // check login validation
-        if(req.body.email == u.email && req.body.password == u.password) {
-            const user = {
+        if(data.email == searchUser.email && data.password == searchUser.password) {
+            const user = await {
                 logined : true,
-                email : email,
-                nickname : nickname
+                email : searchUser.email,
+                name : searchUser.name
             }
-            req.session.user = user
-            console.log("login status : ", req.session)
+            req.session.user = await user
+            await console.log("login status : ", req.session)
         }
         else {
-            console.log("login failed")
+            await console.log("login failed")
         }
-        res.send(re.session.user)
-    })
-    .catch((err) => { res.status(400).send(err) })
- 
+
+        // save session data in DB
+
+        // send login result
+        res.send(req.session.user)
+    }
+    catch(e) { await res.status(500).send(e) }
 })
 
 router.get('/signout', (req, res) => {
-    req.session.destroy(err => {
-        if(err) res.status(500).send(err)
-        else res.sendStatus(200)
-    })
+    console.log(req.session)
+    if(req.session.user == undefined) {
+        res.send("not authorized")
+    }
+    else {
+        req.session.destroy(err => {
+            if(err) res.status(500).send(err)
+            else res.sendStatus(200)
+        })
+    }
+    
 })
 
 module.exports = router

@@ -9,7 +9,7 @@ const session = expressSession({
     secret: 'YouCantSeeMe',
     resave: false,
     saveUninitialized: true,
-    store: new mongoStore({ url: constant.DB_STORE }),
+    store: new mongoStore({ url: `${constant.DB_STORE}/${constant.DB_NAME}` }),
 })
 
 // get express app
