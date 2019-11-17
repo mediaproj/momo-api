@@ -24,17 +24,30 @@ module.exports = Object.freeze({
 
     //constant data
     genres : {
-        '드라마' : 'drama',
-        '판타지' : 'fantasy',
-        '공포(호러)' : 'horror',
-        '멜로/로맨스' : 'ramance',
-        '액션' : 'action',
-        '스릴러' : 'thriller',
-        '애니메이션' : 'animation',
-        '어드벤처' : 'adventure',
-        '미스터리' : 'mistery',
-        '사극' : 'history',
-        'SF' : 'sf',
-        '코미디' : 'comedy'
-    }
+        'drama' : '드라마',
+        'fantasy' : '판타지',
+        'horror' : '공포(호러)',
+        'romance': '멜로/로맨스',
+        'action' : '액션',
+        'thriller' : '스릴러',
+        'animation': '애니메이션',
+        'adventure' : '어드벤처',
+        'mistery' : '미스터리',
+        'history' : '사극',
+        'sf' : 'SF',
+        'comedy' : '코미디'
+    },
+    genresArray : [
+        'drama',
+        'fantasy',
+        'horror',
+        'romance',
+        'action',
+        'thriller',
+        'animation',
+        'adventure',
+        'mistery',
+        'history',
+        'sf',
+        'comedy']
 })

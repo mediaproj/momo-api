@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const constant = require('../utils/constant')
 
 const MovieSchema = new mongoose.Schema({
     'thumbnail' : String,
@@ -27,6 +28,11 @@ MovieSchema.statics.getAllMovie = function() {
 
 MovieSchema.statics.getMovieByCode = function(code) {
     return this.findOne({ movieCode : code })
+}
+
+MovieSchema.statics.getMovieInGenre = function(genre) {
+    console.log(constant.genres[genre])
+    return this.find({ "genres" : constant.genres[genre] })
 }
 
 module.exports = mongoose.model('movie', MovieSchema)
