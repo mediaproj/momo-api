@@ -43,6 +43,12 @@ router.get('/favorite', async (req, res) => {
     catch(err) { await res.status(500).send(err) }
 })
 
+router.get('/people', async (req, res) => {
+    try {
+        
+    } catch(err) { res.status(500).send(err) }
+})
+
 router.get('/boxOffice', (_, res) => {
     kofic.getBoxOffice()
     .then((data) => { res.send(data) })

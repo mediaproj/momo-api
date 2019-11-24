@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+// User table schema
 const UserSchema = new mongoose.Schema({
     'email' : { type : String, unique : true, required : true },
     'profileImg' : String,
@@ -36,6 +37,9 @@ const UserSchema = new mongoose.Schema({
         'title' : String,
         'txt' : String, 
         'enable' : Boolean
+    }],
+    'invite' : [{
+
     }]
 },
 {
@@ -43,6 +47,7 @@ const UserSchema = new mongoose.Schema({
     timestamps : true
 })
 
+// 사용자 생성 function
 UserSchema.statics.findOneorCreate = function(data) {
     const self = this
     return new Promise((resolve, reject) => {
@@ -66,6 +71,7 @@ UserSchema.statics.findOneorCreate = function(data) {
     })
 }
 
+// All user find query
 UserSchema.statics.getAllUsers = function() {
     return this.find({ })
 }
@@ -77,13 +83,33 @@ UserSchema.statics.getUserByData = function(data) {
     })
 }
 
+// user find for login status
 UserSchema.statics.getUserByEmail = function(email) {
     return this.findOne({email : email})
 }
 
-UserSchema.statics.insertUserSchedule = function(schedule) {
-    this.schedule.push(schedule)
-    return this.save()
+UserSchema.statics.getSimilarPeople = function() {
+    return this.find()
+    .where('preference.section.movie').equals(true)
+}
+
+UserSchema.statics.insertUserSchedule = function(email, schedule) {
+    console.log(email)
+    return this.updateOne({
+        'email' : email
+    },
+    {
+        $push : {
+            'schedule' : schedule
+        }
+    })
+}
+
+UserSchema.statics.getMyChatRoom = function(email) {
+    return this.findOne({
+        'email' : email,
+        'schedule.enable' : true
+    })
 }
 
 module.exports = mongoose.model('user', UserSchema)

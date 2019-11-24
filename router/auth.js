@@ -10,9 +10,8 @@ router.post('/login', async (req, res) => {
     try {
         // get user in DB
         const searchUser = await User.getUserByEmail(data.email)
-
         // check login validation
-        if(searchUser = null) { // no user
+        if(searchUser == null) { // no user
             res.send("{}")
         }
         else if(data.email == searchUser.email && data.password == searchUser.password) { // correct user ID and Password
@@ -22,12 +21,13 @@ router.post('/login', async (req, res) => {
                 name : searchUser.name
             }
             req.session.user = await user
-            await console.log("login status : ", req.session)
-            res.send(req.session.user)
+            await console.log("login success")
+            await console.log(res)
+            await res.send(req.session.user)
         }
         else {
             await console.log("login failed")
-            res.send("{}")
+            await res.send("{}")
         }
     }
     catch(e) { await res.status(500).send(e) }
@@ -45,6 +45,18 @@ router.get('/signout', (req, res) => {
         })
     }
     
+})
+
+router.get('/check/:email', async (req, res) => {
+    let result;
+    const user = await User.getUserByEmail(req.params.email)
+    if(req.session.user.email == user.email) {
+        result = req.session.user.logined
+    }
+    else {
+        result = false
+    }
+    res.send(result)
 })
 
 module.exports = router
