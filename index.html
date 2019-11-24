@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      function namespace() {
+        const namespace = io('/chat')
+          // news라는 이벤트를 받을 시 콘솔에 data.hello를 출력
+          namespace.on('init', (data) => {
+          console.log(data.hello)
+        })
+      }
+    </script>
+  </head>
+  <body>
+    <button onclick="namespace()">meet</button>
+    <button onclick="namespace2">chat</button>
+  </body>
+</html>

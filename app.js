@@ -25,6 +25,11 @@ module.exports = session => {
     // security
     app.use(helmet.hidePoweredBy({ setTo : 'HelloMyWorld' }))
 
+    // socket test
+    app.get('/chat', (req, res) => {
+        res.sendFile(__dirname + '/index.html')
+    })
+
     //route
     app.use('/user', require('./router/user'))
     app.use('/auth', require('./router/auth'))

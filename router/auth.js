@@ -12,7 +12,10 @@ router.post('/login', async (req, res) => {
         const searchUser = await User.getUserByEmail(data.email)
 
         // check login validation
-        if(data.email == searchUser.email && data.password == searchUser.password) {
+        if(searchUser = null) { // no user
+            res.send("{}")
+        }
+        else if(data.email == searchUser.email && data.password == searchUser.password) { // correct user ID and Password
             const user = await {
                 logined : true,
                 email : searchUser.email,
@@ -20,15 +23,12 @@ router.post('/login', async (req, res) => {
             }
             req.session.user = await user
             await console.log("login status : ", req.session)
+            res.send(req.session.user)
         }
         else {
             await console.log("login failed")
+            res.send("{}")
         }
-
-        // save session data in DB
-
-        // send login result
-        res.send(req.session.user)
     }
     catch(e) { await res.status(500).send(e) }
 })

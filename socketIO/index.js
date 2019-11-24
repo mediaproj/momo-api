@@ -1,5 +1,6 @@
 const socketIO = require('socket.io')
 const meetServer = require('./meetServer')
+const chatServer = require('./chatServer')
 
 const socketIOWrapper = (server, session) => {
 
@@ -7,8 +8,9 @@ const socketIOWrapper = (server, session) => {
 
     io.use((socket, next) => { session(socket.request, socket.request.res, next) })
 
+
     meetServer(io.of('/meet')) // use namespace '/meet' for mahjong server
-    // chatServer(io.of('/chat')) // use namespace '/meet' for mahjong server
+    chatServer(io.of('/chat')) // use namespace '/meet' for mahjong server
 }
      
 module.exports = socketIOWrapper

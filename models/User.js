@@ -1,12 +1,12 @@
 const mongoose = require('mongoose')
 
 const UserSchema = new mongoose.Schema({
-    'email' : String,
+    'email' : { type : String, unique : true, required : true },
     'profileImg' : String,
-    'password' : String,
+    'password' : { type : String, required : true },
     'age' : Number,
     'gender' : Boolean,
-    'name' : String,
+    'name' : { type : String, required : true },
     'preference' : {
         'genre' : {
             'drama' : Boolean,
@@ -30,11 +30,11 @@ const UserSchema = new mongoose.Schema({
         }
     },
     'schedule' : [{
-        'id' : String, //수정, 삭제 위한 index용 데이터
-        'from' : Date,
-        'to' : Date,
+        'id' : String,
+        'place' : String,
+        'date' : Date,
         'title' : String,
-        'txt' : String,
+        'txt' : String, 
         'enable' : Boolean
     }]
 },
@@ -79,6 +79,11 @@ UserSchema.statics.getUserByData = function(data) {
 
 UserSchema.statics.getUserByEmail = function(email) {
     return this.findOne({email : email})
+}
+
+UserSchema.statics.insertUserSchedule = function(schedule) {
+    this.schedule.push(schedule)
+    return this.save()
 }
 
 module.exports = mongoose.model('user', UserSchema)
