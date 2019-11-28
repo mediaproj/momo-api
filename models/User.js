@@ -37,9 +37,6 @@ const UserSchema = new mongoose.Schema({
         'title' : String,
         'txt' : String, 
         'enable' : Boolean
-    }],
-    'invite' : [{
-
     }]
 },
 {

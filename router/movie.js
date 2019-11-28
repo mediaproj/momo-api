@@ -3,13 +3,13 @@ const Movie = require('../models/Movie')
 const User = require('../models/User')
 const kofic = require('../utils/kofic')
 const constant = require('../utils/constant')
+const analysis = require('../utils/analysis')
 
 router.get('/favorite', async (req, res) => {
     try {
         // favorite movie
         const g = await new Array()
         const result = await new Array()
-        sess_data = await req.session.user
 
         if(sess_data != {}) { // login status
             // get user data fo user's favorite genre
